@@ -40,6 +40,34 @@ app.get("/country/charles-dickens", (req, res) => {
   res.status(200).json(book ? book.country : "Libro no encontrado");
 });
 
+// Ejercicio 7
+app.get("/year&pages/cervantes", (req, res) => {
+  const book = books.find(b => b.author.toLowerCase() === "miguel de cervantes");
+  if (book) {
+    res.status(200).json({ pages: book.pages, year: book.year });
+  } else {
+    res.status(404).json({ error: "Libro no encontrado" });
+  }
+});
+
+// Ejercicio 8
+app.get("/country/count/spain", (req, res) => {
+  const count = books.filter(b => b.country.toLowerCase() === "spain").length;
+  res.status(200).json({ count });
+});
+
+// Ejercicio 9
+app.get("/country/at-least/germany", (req, res) => {
+  const exists = books.some(b => b.country.toLowerCase() === "germany");
+  res.status(200).json(exists);
+});
+
+// Ejercicio 10
+app.get("/pages/all-greater/200", (req, res) => {
+  const allGreater = books.every(b => b.pages > 200);
+  res.status(200).json(allGreater);
+});
+
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
 });
